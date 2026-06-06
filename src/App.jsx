@@ -7,3 +7,5 @@ function App() {
     <LoginPage />
   );
 }
+
+export default App;

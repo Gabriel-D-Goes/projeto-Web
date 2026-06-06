@@ -9,7 +9,7 @@ function LoginPage() {
         
         {/* Espaço para a Logo da Livraria */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <h2>Logo da Livraria</h2>
+          <h2>Logo </h2>
         </div>
 
     {isLogin ? (
@@ -45,8 +45,8 @@ function LoginPage() {
             <select style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}>
               <option>Selecione seu grau</option>
               <option>Ensino Fundamental I</option>
+              <option>Ensino Fundamental II</option>
               <option>Ensino Médio</option>
-              <option>Ensino Superior</option>
             </select>
 
             <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold', marginTop: '10px' }}>
