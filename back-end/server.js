@@ -10,10 +10,6 @@ app.get('/api/teste', (req, res) => {
     res.json({mensagem: "rodando e operante"});
 });
 
-app.get('/api/login', (req, res) => {
-    res.json({})
-})
-
 //iniciando o servidor
 const PORT = 5000;
 app.listen(PORT, () => {
