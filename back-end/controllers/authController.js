@@ -3,11 +3,11 @@ const authService = require("../services/authService");
 exports.register = async (req, res) => {
     try {
         //dados da crição de conta
-        const {nome, cpf, email, senha, confirmaSenha} = req.body;
+        const {nome, cpf, email, senha, confirmaSenha, grauDeEnsino} = req.body;
 
         //busca função la do service
         const novoUsuario = await authService.registrarUsuario({
-            nome, cpf, email, senha, confirmaSenha
+            nome, cpf, email, senha, confirmaSenha, grauDeEnsino
         });
 
         res.status(201).json({ message: "Seja bem-vindo, " + novoUsuario.nome + "!" });

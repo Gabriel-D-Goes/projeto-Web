@@ -1,14 +1,13 @@
 const bcrypt = require ('bcrypt')
 const jwt = require('jsonwebtoken');
+const users = require('../models/users');
 
 const SECRET = process.env.JWT_SECRET || "SEGREDO_SUPER_SECRETAMENTE_SECRETO";
 
-const userDB = [];
-
 exports.registrarUsuario = async (dados) => {
-    const { nome, cpf, email, senha, confirmaSenha } = dados;
+    const { nome, cpf, email, senha, confirmaSenha, grauDeEnsino } = dados;
 
-    if (!nome || !cpf || !email || !senha || !confirmaSenha) {
+    if (!nome || !cpf || !email || !senha || !confirmaSenha || !grauDeEnsino) {
         throw new Error("Todos os campos são obrigatórios!");
     }
 
@@ -16,7 +15,8 @@ exports.registrarUsuario = async (dados) => {
         throw new Error("As senhas devem ser iguais!");
     }
 
-    const userExists = userDB.find(user => user.email === email || user.cpf === cpf);
+    const userExists = await users.findOne ({$or: [{email: email}, {cpf: cpf}] });
+
     if (userExists) {
         throw new Error("Email ou CPF já cadastrados!");
     }
@@ -24,11 +24,15 @@ exports.registrarUsuario = async (dados) => {
     const salzinho = await bcrypt.genSalt(10);
     const senhaSalgada = await bcrypt.hash(senha, salzinho);
 
-    const novoUsuario = {
+    const novoUsuario = new User({
         id: Date.now().toString() + userDB.length.toString(),
-        nome, cpf, email, senha: senhaSalgada };
+        nome,
+        cpf,
+        email,
+        senha: senhaSalgada,
+        grauDeEnsino });
 
-    userDB.push(novoUsuario);
+    await novoUsuario.save();
 
     const token = jwt.sign({ id: novoUsuario.id }, SECRET, { expiresIn: '1h' });
 
@@ -43,7 +47,8 @@ exports.fazerLogin = async (dados) => {
         throw new Error("Email e senha são obrigatórios!");
     }
 
-    const usuario = userDB.find(user => user.email === email);
+    const usuario = await User.findOne({email: email });
+
     if (!usuario) {
         throw new Error("Email ou senha inválidos", 401);
     }
