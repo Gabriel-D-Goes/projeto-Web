@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
         const {nome, cpf, email, senha, confirmaSenha} = req.body;
 
         //busca função la do service
-        const novoUsuario = await authservice.register({
+        const novoUsuario = await authService.registrarUsuario({
             nome, cpf, email, senha, confirmaSenha
         });
 
@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const resultadoLogin = await authService.login(req.body);
+        const resultadoLogin = await authService.fazerLogin(req.body);
 
         res.status(200).json({
             message: "Login bem-sucedido!",
