@@ -5,8 +5,15 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <LoginPage />
+  return (<BrowserRouter>
+      <Routes>
+        {/* rota inicial */}
+        <Route path="/" element={<LoginPage />} />
+        
+        {/* rota home - página principal após login */}
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
