@@ -28,8 +28,12 @@ function HomePage() {
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <BookCard title="Cálculo Vol 1" year="2021" availability="Disponível" />
             <BookCard title="Álgebra Linear" year="1993" availability="Indisponível" />
+          </div>
+        </section>
 
+        <section>
           <h3 style={{ borderBottom: '2px solid black', display: 'inline-block' }}>História</h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <BookCard title="História Global" year="2024" availability="Disponível" />
             <BookCard title="Brasil Império" year="2017" availability="Indisponível" />
           </div>
