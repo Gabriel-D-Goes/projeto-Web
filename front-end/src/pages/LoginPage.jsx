@@ -42,6 +42,42 @@ function LoginPage() {
     }
   };
 
+//função para enviar os dados de cadastro para o back-end
+  const handleRegister = async (e) => {
+    e.preventDefault(); 
+    
+    if (senhaCadastro !== confirmaSenhaCadastro) {
+      alert("As senhas não coincidem!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          nome: nomeCadastro, 
+          cpf: cpfCadastro, 
+          email: emailCadastro, 
+          senha: senhaCadastro,
+          escolaridade: escolaridadeCadastro 
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso! Faça seu login.");
+        setIsLogin(true); // Joga o usuário de volta para a tela de login
+      } else {
+        alert(data.message || "Erro ao realizar cadastro.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Erro ao conectar com o servidor.");
+    }
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9' }}>
       <div style={{ border: '1px solid #ccc', padding: '30px', borderRadius: '10px', width: '350px', backgroundColor: 'white' }}>
@@ -88,22 +124,22 @@ function LoginPage() {
           </form>
     
         ) : (
-          // ================= TELA DE CADASTRO =================
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          //tela de cadastro
+          <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <p style={{ textAlign: 'center', marginBottom: '15px', fontSize: '14px' }}>Preencha os campos abaixo para fazer cadastro:</p>
             
-            <input type="text" placeholder="nome completo*" required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
-            <input type="text" placeholder="CPF*" required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
-            <input type="email" placeholder="email*" required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
-            <input type="password" placeholder="senha*" required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
-            <input type="password" placeholder="Confirmar senha*" required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
+            <input type="text" placeholder="nome completo*" required value={nomeCadastro} onChange={(e) => setNomeCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
+            <input type="text" placeholder="CPF*" required value={cpfCadastro} onChange={(e) => setCpfCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
+            <input type="email" placeholder="email*" required value={emailCadastro} onChange={(e) => setEmailCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
+            <input type="password" placeholder="senha*" required value={senhaCadastro} onChange={(e) => setSenhaCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
+            <input type="password" placeholder="Confirmar senha*" required value={confirmaSenhaCadastro} onChange={(e) => setConfirmaSenhaCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
 
             <label style={{ fontSize: '14px', marginTop: '5px' }}>escolaridade:</label>
-            <select style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}>
-              <option>Selecione seu grau</option>
-              <option>Ensino Fundamental I</option>
-              <option>Ensino Fundamental II</option>
-              <option>Ensino Médio</option>
+            <select value={escolaridadeCadastro} onChange={(e) => setEscolaridadeCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}>
+              <option value="">Selecione seu grau</option>
+              <option value="Fundamental I">Ensino Fundamental I</option>
+              <option value="Fundamental II">Ensino Fundamental II</option>
+              <option value="Medio">Ensino Médio</option>
             </select>
 
             <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold', marginTop: '10px' }}>
