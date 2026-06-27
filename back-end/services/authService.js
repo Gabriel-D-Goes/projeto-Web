@@ -16,6 +16,7 @@ exports.registrarUsuario = async (dados) => {
 
     if (!nome || !cpf || !email || !senha || !confirmaSenha || !serie) {
         throw new Error('Todos os campos sao obrigatorios!');
+
     }
 
     if (senha !== confirmaSenha) {
@@ -32,16 +33,17 @@ exports.registrarUsuario = async (dados) => {
         throw new Error('E-mail ou CPF já cadastrados!');
     }
 
-    const novoUsuario = {
+    const novoUsuario = new User({
         id: Date.now().toString() + userDB.length.toString(),
         nome,
         cpf,
         email,
         serie,
         senha: salgaSenha(senha)
-    };
+    });
 
-    userDB.push(novoUsuario);
+
+    await novoUsuario.save();
 
     const user = {
         id: novoUsuario.id,

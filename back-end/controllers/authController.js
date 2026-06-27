@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const resultadoLogin = await authService.login(req.body);
+        const resultadoLogin = await authService.fazerLogin(req.body);
 
         res.status(200).json({
             message: "Login bem-sucedido!",
