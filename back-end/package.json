@@ -1,13 +1,12 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "catalogo de livros E.M",
+  "main": "server.js",
 
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
 
   "keywords": [],
