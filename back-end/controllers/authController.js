@@ -2,16 +2,13 @@ const authService = require("../services/authService");
 
 exports.register = async (req, res) => {
     try {
-        //dados da crição de conta
-        const {nome, cpf, email, senha, confirmaSenha, grauDeEnsino} = req.body;
+        const resultadoRegistro = await authService.register(req.body);
 
-        //busca função la do service
-        const novoUsuario = await authService.registrarUsuario({
-            nome, cpf, email, senha, confirmaSenha, grauDeEnsino
+        res.status(201).json({
+            message: `Seja bem-vindo, ${resultadoRegistro.user.nome}!`,
+            token: resultadoRegistro.token,
+            user: resultadoRegistro.user
         });
-
-        res.status(201).json({ message: "Seja bem-vindo, " + novoUsuario.nome + "!" });
-
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

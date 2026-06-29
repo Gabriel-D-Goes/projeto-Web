@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "dependências do back-end do projeto web",
   "main": "server.js",
+
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "node --watch server.js"
   },
   "keywords": [],
   "author": "",
