@@ -1,17 +1,20 @@
-import React from "react";
-import BookCard from "./components/BookCard";
-import LoginPage from "./pages/LoginPage";
-import { useEffect, useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
+
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import BookDetailsPage from './pages/BookDetailsPage';
 
 function App() {
-  return (<BrowserRouter>
+  return (
+    <BrowserRouter>
       <Routes>
-        {/* rota inicial */}
+        {/* rota ao abrir o site */}
         <Route path="/" element={<LoginPage />} />
         
-        {/* rota home - página principal após login */}
+        {/* rota após o login */}
         <Route path="/home" element={<HomePage />} />
+        <Route path="/livro" element={<BookDetailsPage />} />
       </Routes>
     </BrowserRouter>
   );

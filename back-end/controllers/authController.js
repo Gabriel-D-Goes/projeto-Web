@@ -2,7 +2,7 @@ const authService = require("../services/authService");
 
 exports.register = async (req, res) => {
     try {
-        const resultadoRegistro = await authService.register(req.body);
+        const resultadoRegistro = await authService.registrarUsuario(req.body);
 
         res.status(201).json({
             message: `Seja bem-vindo, ${resultadoRegistro.user.nome}!`,
