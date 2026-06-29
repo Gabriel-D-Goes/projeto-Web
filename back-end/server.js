@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-const forumRoutes = require('./routes/forumRoutes');
+//const forumRoutes = require('./routes/forumRoutes');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-app.use('/forum', forumRoutes);
+//app.use('/forum', forumRoutes);
 
 //iniciando o servidor
 const PORT = process.env.PORT || 5000;

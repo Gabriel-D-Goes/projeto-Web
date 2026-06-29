@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  // controla se a tela é a de login (true) ou cadastro (false)
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  
   const [emailLogin, setEmailLogin] = useState('');
   const [senhaLogin, setSenhaLogin] = useState('');
 
@@ -15,12 +15,11 @@ function LoginPage() {
   const [confirmaSenhaCadastro, setConfirmaSenhaCadastro] = useState('');
   const [escolaridadeCadastro, setEscolaridadeCadastro] = useState('');
 
-  // envia os dados para o back-end
+  // ================= FUNÇÃO DE LOGIN =================
   const handleLogin = async (e) => {
     e.preventDefault(); 
 
     try {
-      // localhost apontando para a porta 5000 e para a rota /auth/login
       const response = await fetch("http://localhost:5000/auth/login", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,26 +29,23 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
+        // SALVANDO O NOVO TOKEN DO BACK-END NO NAVEGADOR!
+        localStorage.setItem('token', data.token);
+        
         alert(`Login efetuado com sucesso!`);
-        navigate('/home'); // Navega para a página inicial após login
+        navigate('/home'); 
       } else {
-        alert(data.message || "Erro ao fazer login.");
+        alert(data.error || data.message || "Erro ao fazer login.");
       }
-      
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Erro ao conectar com o servidor. O back-end está rodando?");
+      alert("Erro ao conectar com o servidor.");
     }
   };
 
-//função para enviar os dados de cadastro para o back-end
+  // ================= FUNÇÃO DE CADASTRO =================
   const handleRegister = async (e) => {
     e.preventDefault(); 
-    
-    if (senhaCadastro !== confirmaSenhaCadastro) {
-      alert("As senhas não coincidem!");
-      return;
-    }
 
     try {
       const response = await fetch("http://localhost:5000/auth/register", {
@@ -60,17 +56,18 @@ function LoginPage() {
           cpf: cpfCadastro, 
           email: emailCadastro, 
           senha: senhaCadastro,
-          escolaridade: escolaridadeCadastro 
+          confirmaSenha: confirmaSenhaCadastro, // Agora mandamos para o back-end validar
+          serie: escolaridadeCadastro // O back-end chama de 'serie' agora
         })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert("Cadastro realizado com sucesso! Faça seu login.");
-        setIsLogin(true); // Joga o usuário de volta para a tela de login
+        alert(data.message || "Cadastro realizado com sucesso! Faça seu login.");
+        setIsLogin(true); 
       } else {
-        alert(data.message || "Erro ao realizar cadastro.");
+        alert(data.error || data.message || "Erro ao realizar cadastro.");
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
@@ -82,39 +79,26 @@ function LoginPage() {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9' }}>
       <div style={{ border: '1px solid #ccc', padding: '30px', borderRadius: '10px', width: '350px', backgroundColor: 'white' }}>
         
-        {/* Espaço para a Logo da Livraria */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <h2>Logo</h2>
         </div>
 
         {isLogin ? (
           // ================= TELA DE LOGIN =================
-          // ADICIONADO: onSubmit={handleLogin} para acionar a função
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            
-            {/* ADICIONADO: value e onChange para o React ler a digitação */}
             <input 
-              type="email" 
-              placeholder="Email" 
-              value={emailLogin}
-              onChange={(e) => setEmailLogin(e.target.value)}
-              required
+              type="email" placeholder="Email" required
+              value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)}
               style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} 
             />
-            
             <input 
-              type="password" 
-              placeholder="Senha" 
-              value={senhaLogin}
-              onChange={(e) => setSenhaLogin(e.target.value)}
-              required
+              type="password" placeholder="Senha" required
+              value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)}
               style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} 
             />
-            
             <button type="submit" style={{ padding: '10px', backgroundColor: '#0056b3', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
               Entrar
             </button>
-            
             <p style={{ textAlign: 'center', fontSize: '14px', marginTop: '10px' }}>
               Ainda não é cadastrado?<br/>
               <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }} style={{ fontWeight: 'bold', color: '#0056b3', textDecoration: 'none' }}>
@@ -122,9 +106,8 @@ function LoginPage() {
               </a>
             </p>
           </form>
-    
         ) : (
-          //tela de cadastro
+          // ================= TELA DE CADASTRO =================
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <p style={{ textAlign: 'center', marginBottom: '15px', fontSize: '14px' }}>Preencha os campos abaixo para fazer cadastro:</p>
             
@@ -135,17 +118,17 @@ function LoginPage() {
             <input type="password" placeholder="Confirmar senha*" required value={confirmaSenhaCadastro} onChange={(e) => setConfirmaSenhaCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
 
             <label style={{ fontSize: '14px', marginTop: '5px' }}>escolaridade:</label>
-            <select value={escolaridadeCadastro} onChange={(e) => setEscolaridadeCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}>
+            {/* O value agora é 1, 2 ou 3, exatamente como o back-end exigiu */}
+            <select value={escolaridadeCadastro} onChange={(e) => setEscolaridadeCadastro(e.target.value)} required style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}>
               <option value="">Selecione seu grau</option>
-              <option value="Fundamental I">Ensino Fundamental I</option>
-              <option value="Fundamental II">Ensino Fundamental II</option>
-              <option value="Medio">Ensino Médio</option>
+              <option value="1">Ensino Fundamental I</option>
+              <option value="2">Ensino Fundamental II</option>
+              <option value="3">Ensino Médio</option>
             </select>
 
             <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold', marginTop: '10px' }}>
               FAZER CADASTRO
             </button>
-            
             <p style={{ textAlign: 'center', fontSize: '14px', marginTop: '10px' }}>
               Já tem conta?{' '}
               <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(true); }} style={{ fontWeight: 'bold', color: '#0056b3', textDecoration: 'none' }}>
@@ -154,7 +137,6 @@ function LoginPage() {
             </p>
           </form>
         )}
-
       </div>
     </div>
   );
