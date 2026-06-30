@@ -76,12 +76,37 @@ function LoginPage() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9' }}>
-      <div style={{ border: '1px solid #ccc', padding: '30px', borderRadius: '10px', width: '350px', backgroundColor: 'white' }}>
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '100vh', 
+      backgroundColor: '#f4f7f6'
+    }}>
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        padding: '50px 40px', 
+        borderRadius: '16px',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+        width: '100%', 
+        maxWidth: '400px',
+        textAlign: 'center'
+      }}>
         
-        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <h2>Logo</h2>
-        </div>
+        <img 
+          src="/logo/logo.jpg" 
+          alt="Logo da Biblioteca" 
+          style={{ width: '200px', height: 'auto', marginBottom: '20px', display: 'block', margin: '0 auto' }} 
+        />
+        
+        <h2 style={{ 
+          color: '#1a202c',
+          fontSize: '24px', 
+          fontWeight: '700', 
+          marginBottom: '35px' 
+        }}>
+          Login no Sistema
+        </h2>
 
         {isLogin ? (
           // ================= TELA DE LOGIN =================
