@@ -134,7 +134,7 @@ function LoginPage() {
         ) : (
           // ================= TELA DE CADASTRO =================
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <p style={{ textAlign: 'center', marginBottom: '15px', fontSize: '14px' }}>Preencha os campos abaixo para fazer cadastro:</p>
+            <p style={{ textAlign: 'center', marginBottom: '15px', fontSize: '14px' }}>Preencha os espaços abaixo para fazer cadastro:</p>
             
             <input type="text" placeholder="nome completo*" required value={nomeCadastro} onChange={(e) => setNomeCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
             <input type="text" placeholder="CPF*" required value={cpfCadastro} onChange={(e) => setCpfCadastro(e.target.value)} style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }} />
