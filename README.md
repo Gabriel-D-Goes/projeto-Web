@@ -17,4 +17,8 @@ Aplicação Web desenvolvida para gerenciamento e intermediação de aluguel de 
 1. Extraia o arquivo `.zip` ou faça o clone do repositório.
 2. Acesse a pasta `back-end`, abra o terminal, rode `npm install` e inicie o servidor com `node server.js`.
 3. Acesse a pasta `front-end` em outro terminal, rode `npm install` e inicie a interface com `npm run dev`.
+<<<<<<< HEAD
 4. Acesse `http://localhost:5173` no navegador.
+=======
+4. Acesse `http://localhost:5173` no navegador.
+>>>>>>> fd7356a2c335576a2c0f4cc70225994fe64dc5b1
