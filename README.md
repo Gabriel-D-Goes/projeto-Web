@@ -3,6 +3,7 @@
 **Curso:** Sistemas de Informação - Universidade Federal de Santa Catarina (UFSC)
 **Autores:** Yasmim de Cássia Normanha Silva (22104162) e Gabriel de Paula Góes (24203159)
 Link repositório do projeto: `https://github.com/Gabriel-D-Goes/projeto-Web.git`
+`https://projetobiblioteca-gamma.vercel.app/`
 
 ## 📝 Descrição do Projeto
 Aplicação Web desenvolvida para gerenciamento e intermediação de aluguel de livros didáticos e literários. O sistema conta com um ecossistema completo composto por:

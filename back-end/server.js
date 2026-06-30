@@ -18,7 +18,7 @@ app.use('/auth', authRoutes);
 //app.use('/forum', forumRoutes);
 
 //iniciando o servidor
-const PORT = process.env.PORT || `https://projeto-web-93xg.onrender.com`;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`servidor rodando na porta ${PORT} e operante`);
 });
