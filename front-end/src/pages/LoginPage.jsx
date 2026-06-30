@@ -20,7 +20,7 @@ function LoginPage() {
     e.preventDefault(); 
 
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await fetch("https://projeto-web-93xg.onrender.com", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailLogin, senha: senhaLogin })
@@ -48,7 +48,7 @@ function LoginPage() {
     e.preventDefault(); 
 
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("https://projeto-web-93xg.onrender.com", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
