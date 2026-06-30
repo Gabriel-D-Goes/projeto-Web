@@ -4,6 +4,10 @@
 **Autores:** Yasmim de Cássia Normanha Silva (22104162) e Gabriel de Paula Góes (24203159)
 Link repositório do projeto: `https://github.com/Gabriel-D-Goes/projeto-Web.git`
 `https://projetobiblioteca-gamma.vercel.app/`
+<<<<<<< HEAD
+=======
+
+>>>>>>> 46b128f1d3f53e5b5d83000041a8df67f8823ff0
 
 ## 📝 Descrição do Projeto
 Aplicação Web desenvolvida para gerenciamento e intermediação de aluguel de livros didáticos e literários. O sistema conta com um ecossistema completo composto por:
